@@ -11,7 +11,7 @@ var routes      = require('./routes');
 var activity    = require('./routes/activity');
 var mcapi       = require('./routes/mcapi');
 var url         = require('url');
-
+var image       = require('./routes/image');
 
 
 require('request').debug = true;
@@ -63,6 +63,7 @@ app.post('/journeybuilder/validate/', activity.validate );
 app.post('/journeybuilder/publish/', activity.publish );
 app.post('/journeybuilder/execute/', activity.execute );
 // app.post('/journeybuilder/execute/', console.log('HERE99') );
+app.post('/image', image.convert);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

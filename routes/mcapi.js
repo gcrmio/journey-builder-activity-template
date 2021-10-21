@@ -8,13 +8,11 @@
 "use strict";
 
 var request = require('request');
+const { response } = require('express');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 var multer = require('multer');
-const cheerio = require('cheerio');
 
-const { response } = require('express');
-var domtoimage = require('dom-to-image');
 
 // AWS.config.update({
 //     accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -379,6 +377,7 @@ function convertContent(atoken) {
 
         try {
             response.send(content);
+            console.log('success');
         } catch (error) {
             console.log('error');
         }
