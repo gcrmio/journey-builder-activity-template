@@ -16,11 +16,24 @@ const cheerio = require('cheerio');
 const { response } = require('express');
 var domtoimage = require('dom-to-image');
 
-AWS.config.update({
-    accessKeyId: process.env.S3_ACCESS_KEY_ID,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    region: 'us-east-1',
-});
+// AWS.config.update({
+//     accessKeyId: process.env.S3_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+//     region: 'us-east-1',
+// });
+
+// const upload = multer({
+//     storage: multerS3({
+//       s3: new AWS.S3(),
+//       bucket: 'lVNhRBjK35lN9SFrwl7adSHAI78etWOQXy+w81Fl',
+//       key(req, file, cb) {
+//         cb(null, 'APPS/TEST/MMSTW/${Date.now()}_${path.basename(file.originalname)}');
+
+//       },
+//     }),
+//     limits: { fileSize: 20 * 1024 * 1024 },
+//   });
+
 // ----------------------------------------------------------------------------------------------------
 
 module.exports.checkapi = function (req, res) {
@@ -78,7 +91,7 @@ module.exports.checkapi = function (req, res) {
     // 01. Get Auth Token
    
 
-    res.status(200).send('checkapi response');
+    res.status(200).send('checkapi response');    
 };
 
 
@@ -363,19 +376,8 @@ function convertContent(atoken) {
 
         console.log(tmp.content);
         var content = '<html>'+tmp.content+'</html>';
-        const $ = cheerio.load(content);
-        const file = domtoimage.toJpeg($.getElementbyId('table'));
-        const upload = multer({
-            storage: multerS3({
-              s3: new AWS.S3(),
-              bucket: 'lVNhRBjK35lN9SFrwl7adSHAI78etWOQXy+w81Fl',
-              key(req, file, cb) {
-                cb(null, 'APPS/TEST/MMSTW/${Date.now()}_${path.basename(file.originalname)}');
-  
-              },
-            }),
-            limits: { fileSize: 20 * 1024 * 1024 },
-          });
+
+
         
 
         console.log("===========================================================================================================");
@@ -383,9 +385,9 @@ function convertContent(atoken) {
 
 
         
-        //return;
+        return content;
     });
     
-    response.sendFile(path.join(__dirname, './public/index.html'));
-    //res.status(200).send('addDE response');
+
+    res.status(200).send(content);
 };
