@@ -11,6 +11,7 @@ var request = require('request');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 var multer = require('multer');
+const { response } = require('express');
 
 AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -358,11 +359,7 @@ function convertContent(atoken) {
         console.log("Content Info ==============================================================================================");
 
         console.log(tmp.content);
-        try {
-            response.send(tmp.content);
-        } catch (error) {
-            console.log("error here!!!!!!");
-        }
+        
         console.log("===========================================================================================================");
         console.log("");
 
@@ -371,5 +368,6 @@ function convertContent(atoken) {
         //return;
     });
     
+    response.json({name: tmp.content});
     //res.status(200).send('addDE response');
 };
