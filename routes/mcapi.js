@@ -377,7 +377,12 @@ function convertContent(atoken) {
         console.log(tmp.content);
         var content = '<html>'+tmp.content+'</html>';
 
-
+        try {
+            response.send(content);
+        } catch (error) {
+            console.log('error');
+        }
+        
         
 
         console.log("===========================================================================================================");
@@ -385,9 +390,9 @@ function convertContent(atoken) {
 
 
         
-        return content;
+        // return;
     });
     
 
-    res.status(200).send(content);
+    //  res.status(200).send('addDE response');
 };
