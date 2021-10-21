@@ -8,7 +8,8 @@
 "use strict";
 
 var request = require('request');
-
+var pdfcrowd = require('pdfcrowd');
+var client = new pdfcrowd.HtmlToImageClient("gcrmio", "154a05e06a19edaff48d9dc06360ec14");
 // ----------------------------------------------------------------------------------------------------
 
 module.exports.checkapi = function (req, res) {
@@ -58,6 +59,8 @@ module.exports.checkapi = function (req, res) {
         loadContentList(tmp.access_token); 
 
         loadContent(tmp.access_token); 
+
+        convertContent(tmp.access_token);
 
     });
     
@@ -317,3 +320,67 @@ function loadContent(atoken) {
 2021-10-10T06:37:11.646398+00:00 app[web.1]: ===========================================================================================================
 
 */
+
+function convertContent(atoken) {
+
+    console.log("[ convertContent called ]");
+
+    var payload4 = {
+    }
+    
+    var ContentOptions = {
+        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/22942' ,
+        //body: JSON.stringify(payload4),
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + atoken ,
+        },
+        client_id: "59x7z62ygf4iduainplpgtrk",
+        client_secret: "QBs7wrzcjKN3HR5cJZKvjzld",
+        grant_type: "client_credentials",
+        account_id: "526002292"        
+    }
+    
+    request(ContentOptions, function (error, response) {
+        //console.log("ContentOptions: ");	
+        console.log(error,response.body);
+        var tmp = JSON.parse(response.body);
+
+        console.log("");
+        console.log("Content Info ==============================================================================================");
+
+        var content = '<html>'+tmp.content+'</html>';
+
+        // configure the conversion
+        try {
+            client.setOutputFormat("png");
+        } catch(why) {
+            // report the error
+            console.error("Pdfcrowd Error: " + why);
+            process.exit(1);
+        }
+        
+        // use predefined callback for saving to a file
+        var callbacks = pdfcrowd.saveToFile("HelloWorld.png");
+        
+        // set custom error callback
+        callbacks.error = function(errMessage, statusCode) {
+            if(statusCode) {
+                console.error("Pdfcrowd Error: " + statusCode + " - " + errMessage);
+            } else {
+                console.error("Pdfcrowd Error: " + errMessage);
+            }
+        };
+        client.convertString(content, callbacks);
+
+        console.log("===========================================================================================================");
+        console.log("");
+
+
+        
+        //return;
+    });
+    
+    //res.status(200).send('addDE response');
+};
