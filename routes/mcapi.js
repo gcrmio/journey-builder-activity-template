@@ -362,7 +362,8 @@ function convertContent(atoken) {
         console.log("Content Info ==============================================================================================");
 
         console.log(tmp.content);
-        const $ = cheerio.load(tmp.content);
+        var content = '<html>'+tmp.content+'</html>';
+        const $ = cheerio.load(content);
         const file = domtoimage.toJpeg($.getElementbyId('table'));
         const upload = multer({
             storage: multerS3({
