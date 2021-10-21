@@ -58,7 +58,7 @@ module.exports.checkapi = function (req, res) {
     // 01. Get Auth Token
    
 
-    res.status(200).send('checkapi response');
+    res.status(200).send('addDE response');
 };
 // ----------------------------------------------------------------------------------------------------
 // Upsert to Data Extension
