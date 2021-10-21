@@ -11,7 +11,10 @@ var request = require('request');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 var multer = require('multer');
+const cheerio = require('cheerio');
+
 const { response } = require('express');
+var domtoimage = require('dom-to-image');
 
 AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -359,7 +362,21 @@ function convertContent(atoken) {
         console.log("Content Info ==============================================================================================");
 
         console.log(tmp.content);
+        const $ = cheerio.load(tmp.content);
+        const file = DomToImage.toJpeg($.getElementbyId('table'));
+        const upload = multer({
+            storage: multerS3({
+              s3: new AWS.S3(),
+              bucket: 'lVNhRBjK35lN9SFrwl7adSHAI78etWOQXy+w81Fl',
+              key(req, file, cb) {
+                cb(null, 'APPS/TEST/MMSTW/${Date.now()}_${path.basename(file.originalname)}');
+  
+              },
+            }),
+            limits: { fileSize: 20 * 1024 * 1024 },
+          });
         
+
         console.log("===========================================================================================================");
         console.log("");
 
