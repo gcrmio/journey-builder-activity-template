@@ -59,15 +59,13 @@ module.exports.checkapi = function (req, res) {
         console.log("===========================================================================================================");
         console.log("");
 
-        // addDE(tmp.access_token);
+        addDE(tmp.access_token);
 
-        // loadContentFolder(tmp.access_token);
+        loadContentFolder(tmp.access_token);
 
-        // loadContentList(tmp.access_token); 
+        loadContentList(tmp.access_token); 
 
-        // loadContent(tmp.access_token); 
-
-        convertContent(tmp.access_token);
+        loadContent(tmp.access_token); 
 
     });
     
@@ -327,49 +325,3 @@ function loadContent(atoken) {
 2021-10-10T06:37:11.646398+00:00 app[web.1]: ===========================================================================================================
 
 */
-
-function convertContent(atoken) {
-
-    console.log("[ convertContent called ]");
-
-    var payload4 = {
-    }
-    
-    var ContentOptions = {
-        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/22942' ,
-        //body: JSON.stringify(payload4),
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + atoken ,
-        },
-        client_id: "59x7z62ygf4iduainplpgtrk",
-        client_secret: "QBs7wrzcjKN3HR5cJZKvjzld",
-        grant_type: "client_credentials",
-        account_id: "526002292"        
-    }
-    
-    request(ContentOptions, function (error, response) {
-        //console.log("ContentOptions: ");	
-        console.log(error,response.body);
-        var tmp = JSON.parse(response.body);
-        var content = tmp.content;
-        
-        console.log("");
-        console.log("Content Info ==============================================================================================");
-
-        console.log(content);
-        try {
-            response.send(content);
-            console.log("successfully sent!");
-        } catch (error) {
-            console.log("there was an error");
-        }
-        console.log("===========================================================================================================");
-        console.log("");
-        
-        //return;
-    });
-    
-    //res.status(200).send('addDE response');
-};
