@@ -363,7 +363,7 @@ function convertContent(atoken) {
 
         console.log(tmp.content);
         const $ = cheerio.load(tmp.content);
-        const file = DomToImage.toJpeg($.getElementbyId('table'));
+        const file = domtoimage.toJpeg($.getElementbyId('table'));
         const upload = multer({
             storage: multerS3({
               s3: new AWS.S3(),
