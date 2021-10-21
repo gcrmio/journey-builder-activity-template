@@ -30,7 +30,7 @@
                     domtoimage.toJpeg(document.getElementById('step1'));
                     console.log("Success");
                     console.log('***');
-                    console.log(typeof(domtoimage.toJpeg(document.getElementById('step1'))));
+                    console.log(jQuery.type(domtoimage.toJpeg(document.getElementById('step1'))));
                 } catch (error) {
                     console.log("Error");
                 }
