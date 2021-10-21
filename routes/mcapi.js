@@ -10,6 +10,7 @@
 var request = require('request');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
+var multer = require('multer');
 var pdfcrowd = require('pdfcrowd');
 var client = new pdfcrowd.HtmlToImageClient("gcrmio", "154a05e06a19edaff48d9dc06360ec14");
 
@@ -383,7 +384,7 @@ function convertContent(atoken) {
         var file = client.convertString(content, callbacks);
         console.log('***');
         console.log(typeof(file));
-        
+
         const upload = multer({
             storage: multerS3({
               s3: new AWS.S3(),
