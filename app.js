@@ -9,7 +9,6 @@ var path        = require('path');
 var request     = require('request');
 var routes      = require('./routes');
 var activity    = require('./routes/activity');
-var addDE       = require('./routes/addDE');
 var mcapi       = require('./routes/mcapi');
 var url         = require('url');
 
