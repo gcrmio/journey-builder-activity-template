@@ -24,8 +24,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-            $("#button").click(function(){
-                fetch('/image', {
+        function convertContent(){
+            fetch('/image', {
                     method: "POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -36,7 +36,7 @@
                     })
                 })
                 .then((response) => console.log(response));
-            })
+        }
             
     </script>   
     <!--Styles-->
@@ -72,7 +72,7 @@
         <div><label for="authToken">Auth Token:</label></div>
         <input class="form-control" id="authToken" type="text" name="authToken" value="">
     </div>    
-    <button id = "button">Click here</button>
+    <button onclick = "convertContent()">Click here</button>
 </div>
 </body>
 </html>
