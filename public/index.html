@@ -27,7 +27,7 @@
         $(document).ready(function(){
             $("#button").click(function(){
                 try {
-                    domtoimage.toBlob(document.getElementById('step1'));
+                    domtoimage.toJpeg(document.getElementById('step1'));
                     console.log("Success");
                 } catch (error) {
                     console.log("Error");
