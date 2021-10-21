@@ -11,8 +11,6 @@ var request = require('request');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 var multer = require('multer');
-var pdfcrowd = require('pdfcrowd');
-var client = new pdfcrowd.HtmlToImageClient("gcrmio", "154a05e06a19edaff48d9dc06360ec14");
 
 AWS.config.update({
     accessKeyId: process.env.S3_ACCESS_KEY_ID,
@@ -356,16 +354,11 @@ function convertContent(atoken) {
         console.log(error,response.body);
         var tmp = JSON.parse(response.body);
         var content = tmp.content;
-        var content2 = '<html>'+tmp.content+'</html>';
+        
         console.log("");
         console.log("Content Info ==============================================================================================");
 
-        console.log(content2);
-        client.convertStringToFile(content,"C:\abc\result.png",
-            function(err, fileName) {
-                if (err) return console.error("Pdfcrowd Error: " + err);
-                console.log("Success: the file was created " + fileName);
-            });
+        console.log(content);
 
         console.log("===========================================================================================================");
         console.log("");
