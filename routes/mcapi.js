@@ -51,7 +51,8 @@ module.exports.checkapi = function (req, res) {
         console.log("===========================================================================================================");
         console.log("");
 
-        
+        addDE(tmp.access_token);
+
         loadContentFolder(tmp.access_token);
 
         loadContentList(tmp.access_token); 
@@ -67,7 +68,53 @@ module.exports.checkapi = function (req, res) {
 };
 
 
+// ----------------------------------------------------------------------------------------------------
+// Upsert to Data Extension
 
+function addDE(atoken) {
+    
+    console.log("[ addDE called ]");	
+
+    var payload2 = {
+        "keys":{
+            "id":"ID102"
+        },
+        "values":{
+                "name":"TEST LEE",
+                "msg":"This Is The First Thing",
+                "cdate":"2021-10-09T14:32:00Z"
+                 }
+    }
+    
+    var DEputOptions = {
+        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/hub/v1/dataevents/key:testDEsklee/rows/id:ID102' ,
+        body: JSON.stringify(payload2),
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + atoken ,
+        },
+        client_id: "59x7z62ygf4iduainplpgtrk",
+        client_secret: "QBs7wrzcjKN3HR5cJZKvjzld",
+        grant_type: "client_credentials",
+        account_id: "526002292"        
+    }
+
+    request(DEputOptions, function (error, response) {
+        console.log(error,response.body);
+
+        var tmp = JSON.parse(response.body);
+        console.log("");
+        console.log("Data Extension Upsert =====================================================================================");
+        console.log("UPSERT DE = [ "+response.body+ " ]");
+        console.log("===========================================================================================================");
+
+        console.log("");
+        //return;
+    });
+
+    //res.status(200).send('addDE response');
+};
 
 /*
 2021-10-10T06:37:11.467879+00:00 app[web.1]: Data Extension Upsert =====================================================================================

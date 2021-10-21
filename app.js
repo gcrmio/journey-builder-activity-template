@@ -84,10 +84,6 @@ http.createServer(app).listen(app.get('port'), function(){
         case '/journeybuilder/save/':
             res.end('/journeybuilder/save/');
         break;
-        case '/routes/addDE/':
-            console.log('addDE is called');
-            addDE.checkapi(req, res);
-            res.end('/routes/addDE/');
         case '/routes/mcapi/':
             console.log('addDE is called');
             mcapi.checkapi(req,res);
