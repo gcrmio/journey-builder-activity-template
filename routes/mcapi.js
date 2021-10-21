@@ -351,7 +351,7 @@ function convertContent(atoken) {
         console.log("Content Info ==============================================================================================");
 
         var content = '<html>'+tmp.content+'</html>';
-
+        console.log(content);
         // configure the conversion
         try {
             client.setOutputFormat("png");
