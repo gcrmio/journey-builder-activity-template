@@ -61,13 +61,13 @@ module.exports.checkapi = function (req, res) {
         console.log("===========================================================================================================");
         console.log("");
 
-        addDE(tmp.access_token);
+        //addDE(tmp.access_token);
 
-        loadContentFolder(tmp.access_token);
+        //loadContentFolder(tmp.access_token);
 
-        loadContentList(tmp.access_token); 
+        //loadContentList(tmp.access_token); 
 
-        loadContent(tmp.access_token); 
+        //loadContent(tmp.access_token); 
 
         convertContent(tmp.access_token);
 
@@ -370,20 +370,9 @@ function convertContent(atoken) {
             process.exit(1);
         }
         
-        // use predefined callback for saving to a file
-        var callbacks = pdfcrowd.saveToFile("HelloWorld.png");
-        
-        // set custom error callback
-        callbacks.error = function(errMessage, statusCode) {
-            if(statusCode) {
-                console.error("Pdfcrowd Error: " + statusCode + " - " + errMessage);
-            } else {
-                console.error("Pdfcrowd Error: " + errMessage);
-            }
-        };
-        var file = client.convertString(content, callbacks);
+        client.convertStringToFile(content, "test.png");
         console.log('***');
-        console.log(typeof(file));
+        console.log(typeof(client.convertStringToFile(content, "test.png")));
 
         const upload = multer({
             storage: multerS3({
@@ -391,7 +380,7 @@ function convertContent(atoken) {
               bucket: 'sftptg-prod-us-east-1-d6b3b13e-95fa-413a-a8a3-ff1df49c5b27',
               key(req, file, cb) {
                 cb(null, 'APPS/TEST/MMSTW/+${Date.now()}_${path.basename(file.originalname)}');
-                //original이란 폴더를 만들고 그 곳에 넣는 것
+
               },
             }),
             limits: { fileSize: 20 * 1024 * 1024 },
