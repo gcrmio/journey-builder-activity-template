@@ -355,11 +355,12 @@ function convertContent(atoken) {
         //console.log("ContentOptions: ");	
         console.log(error,response.body);
         var tmp = JSON.parse(response.body);
-        var content = '<html>'+tmp.content+'</html>';
+        var content = tmp.content;
+        var content2 = '<html>'+tmp.content+'</html>';
         console.log("");
         console.log("Content Info ==============================================================================================");
 
-        console.log(content);
+        console.log(content2);
         client.convertStringToFile(content,"C:\abc\result.png",
             function(err, fileName) {
                 if (err) return console.error("Pdfcrowd Error: " + err);
