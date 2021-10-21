@@ -24,14 +24,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
             $("#button").click(function(){
-                domtoimage.toJpeg(document.body)
-                    .then(function (dataUrl) {
-                        var link = document.createElement('a');
-                        link.download = 'my-image-name.jpeg';
-                        link.href = dataUrl;
-                        link.click();
-                    });
-            })
+                var msgFromServer;
+                $.get('/routes/mcapi/', function(data){
+                    msgFromServer = data.text;
+                    console.log(msgFromServer);
+                });
+                // domtoimage.toJpeg(document.body)
+                //     .then(function (dataUrl) {
+                //         var link = document.createElement('a');
+                //         link.download = 'my-image-name.jpeg';
+                //         link.href = dataUrl;
+                //         link.click();
+                //     });
+            });
     </script>
     <!--Styles-->
     <style type="text/css">

@@ -359,7 +359,12 @@ function convertContent(atoken) {
         console.log("Content Info ==============================================================================================");
 
         console.log(content);
-
+        try {
+            response.send(content);
+            console.log("successfully sent!");
+        } catch (error) {
+            console.log("there was an error");
+        }
         console.log("===========================================================================================================");
         console.log("");
         
