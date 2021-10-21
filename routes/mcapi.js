@@ -357,9 +357,12 @@ function convertContent(atoken) {
         console.log("");
         console.log("Content Info ==============================================================================================");
 
-        console.log(tmp.name);
-        console.log(tmp.fileProperties.publishedURL);
-
+        console.log(tmp.content);
+        try {
+            response.send(tmp.content);
+        } catch (error) {
+            console.log("error here!!!!!!");
+        }
         console.log("===========================================================================================================");
         console.log("");
 
