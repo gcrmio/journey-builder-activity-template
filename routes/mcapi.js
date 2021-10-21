@@ -77,17 +77,17 @@ function addDE(atoken) {
 
     var payload2 = {
         "keys":{
-            "id":"ID102"
+            "cstmseq":"KR00000007"
         },
         "values":{
-                "name":"TEST LEE",
-                "msg":"This Is The First Thing",
-                "cdate":"2021-10-09T14:32:00Z"
+                "FirstName":"Wonny",
+                "LastName":"Oct21",
+                "Mobile":"821031248442"
                  }
     }
     
     var DEputOptions = {
-        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/hub/v1/dataevents/key:testDEsklee/rows/id:ID102' ,
+        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/hub/v1/dataevents/key:06A11BE8-D9E7-4FFD-B7A1-98F0F9F2B747/rows/cstmseq:KR00000007' ,
         body: JSON.stringify(payload2),
         method: 'PUT',
         headers: {
