@@ -116,8 +116,9 @@ define([
             "authToken": authToken,
             "messagingService": messagingService,
             "body" : body,
-            "name" : "{{Event."+eventDefinitionKey+".Name}}", 
-            "phone": "{{Event."+eventDefinitionKey+".Phone}}"
+            "name" : "{{Event."+eventDefinitionKey+".FirstName}}"+"{{Event."+eventDefinitionKey+".LastName}}", 
+            "mobile": "{{Event."+eventDefinitionKey+".Mobile}}",
+            "CSTMSEQ": "{{Event."+eventDefinitionKey+".cstmseq}}"
         }];
 
         payload['metaData'].isConfigured = true;
