@@ -24,19 +24,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            $("#button").click(function(){
-                try {
-                    domtoimage.toJpeg(document.getElementById('step1'));
-                    console.log("Success");
-                    console.log('***');
-                    console.log(jQuery.type(domtoimage.toJpeg(document.getElementById('step1'))));
-                } catch (error) {
-                    console.log("Error");
-                }
+        // $(document).ready(function(){
+        //     $("#button").click(function(){
+        //         try {
+        //             domtoimage.toJpeg(document.getElementById('step1'));
+        //             console.log("Success");
+        //             console.log('***');
+        //             console.log(jQuery.type(domtoimage.toJpeg(document.getElementById('step1'))));
+        //         } catch (error) {
+        //             console.log("Error");
+        //         }
                 
+        //     })
+        // })
+        function screenshot() {
+            domtoimage.toJpeg(document.getElementById('step1'))
+            .then(function(img) {
+                document.body.appendChild(img);
             })
-        })
+        }
     </script>   
     <!--Styles-->
     <style type="text/css">
@@ -71,7 +77,7 @@
         <div><label for="authToken">Auth Token:</label></div>
         <input class="form-control" id="authToken" type="text" name="authToken" value="">
     </div>    
-    <button id = "button">Click here</button>
+    <button onclick = "screenshot()">Click here</button>
 </div>
 </body>
 </html>
