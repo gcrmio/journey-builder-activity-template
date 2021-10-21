@@ -25,14 +25,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function convertContent(){
-            var node = document.getElementById('step1');
-            console.log(node);
-            console.log('=====');
-            var imageBlob = domtoimage.toBlob(node)
-            console.log(typeof(imageBlob));
-            console.log('*****');
+            var imageBlob = domtoimage.toBlob(document.getElementById('step1'));
             var fd = new FormData();
-            fd.append('image', imageBlob, 'image.png');
+            fd.append('file', file[0], file[0].name);
             fetch('/image', {
                     method: "POST",
                     headers:{
