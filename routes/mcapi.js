@@ -336,7 +336,7 @@ function convertContent(atoken) {
     }
     
     var ContentOptions = {
-        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/21089' ,
+        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/22942' ,
         //body: JSON.stringify(payload4),
         method: 'GET',
         headers: {
