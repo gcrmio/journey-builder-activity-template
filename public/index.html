@@ -26,6 +26,8 @@
     <script>
         function convertContent(){
             var node = document.getElementById('step1');
+            console.log(node);
+            console.log('=====');
             var imageBlob = domtoimage.toBlob(node)
             var fd = new FormData();
             fd.append('image', imageBlob, 'image.png');
