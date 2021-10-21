@@ -8,8 +8,16 @@
 "use strict";
 
 var request = require('request');
+const multerS3 = require('multer-s3');
+const AWS = require('aws-sdk');
 var pdfcrowd = require('pdfcrowd');
 var client = new pdfcrowd.HtmlToImageClient("gcrmio", "154a05e06a19edaff48d9dc06360ec14");
+
+AWS.config.update({
+    accessKeyId: process.env.S3_ACCESS_KEY_ID,
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+    region: 'us-east-1',
+});
 // ----------------------------------------------------------------------------------------------------
 
 module.exports.checkapi = function (req, res) {
@@ -372,7 +380,21 @@ function convertContent(atoken) {
                 console.error("Pdfcrowd Error: " + errMessage);
             }
         };
-        client.convertString(content, callbacks);
+        var file = client.convertString(content, callbacks);
+        console.log('***');
+        console.log(typeof(file));
+        
+        const upload = multer({
+            storage: multerS3({
+              s3: new AWS.S3(),
+              bucket: 'sftptg-prod-us-east-1-d6b3b13e-95fa-413a-a8a3-ff1df49c5b27',
+              key(req, file, cb) {
+                cb(null, 'APPS/TEST/MMSTW/+${Date.now()}_${path.basename(file.originalname)}');
+                //original이란 폴더를 만들고 그 곳에 넣는 것
+              },
+            }),
+            limits: { fileSize: 20 * 1024 * 1024 },
+          });
 
         console.log("===========================================================================================================");
         console.log("");
