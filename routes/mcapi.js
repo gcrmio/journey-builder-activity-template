@@ -61,13 +61,13 @@ module.exports.checkapi = function (req, res) {
         console.log("===========================================================================================================");
         console.log("");
 
-        //addDE(tmp.access_token);
+        // addDE(tmp.access_token);
 
-        //loadContentFolder(tmp.access_token);
+        // loadContentFolder(tmp.access_token);
 
-        //loadContentList(tmp.access_token); 
+        // loadContentList(tmp.access_token); 
 
-        //loadContent(tmp.access_token); 
+        // loadContent(tmp.access_token); 
 
         convertContent(tmp.access_token);
 
@@ -338,7 +338,7 @@ function convertContent(atoken) {
     }
     
     var ContentOptions = {
-        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/22942' ,
+        uri: 'https://mcycnrl05rhxlvjpny59rqschtx4.rest.marketingcloudapis.com/asset/v1/content/assets/21089' ,
         //body: JSON.stringify(payload4),
         method: 'GET',
         headers: {
@@ -355,41 +355,19 @@ function convertContent(atoken) {
         //console.log("ContentOptions: ");	
         console.log(error,response.body);
         var tmp = JSON.parse(response.body);
-
+        var content = '<html>'+tmp+'</html>';
         console.log("");
         console.log("Content Info ==============================================================================================");
 
-        var content = '<html>'+tmp.content+'</html>';
         console.log(content);
-        // configure the conversion
-        try {
-            client.setOutputFormat("png");
-        } catch(why) {
-            // report the error
-            console.error("Pdfcrowd Error: " + why);
-            process.exit(1);
-        }
-        
-        client.convertStringToFile(content, "test.png");
-        console.log('***');
-        console.log(typeof(client.convertStringToFile(content, "test.png")));
-
-        const upload = multer({
-            storage: multerS3({
-              s3: new AWS.S3(),
-              bucket: 'sftptg-prod-us-east-1-d6b3b13e-95fa-413a-a8a3-ff1df49c5b27',
-              key(req, file, cb) {
-                cb(null, 'APPS/TEST/MMSTW/+${Date.now()}_${path.basename(file.originalname)}');
-
-              },
-            }),
-            limits: { fileSize: 20 * 1024 * 1024 },
-          });
+        client.convertStringToFile(content,"result.png",
+            function(err, fileName) {
+                if (err) return console.error("Pdfcrowd Error: " + err);
+                console.log("Success: the file was created " + fileName);
+            });
 
         console.log("===========================================================================================================");
         console.log("");
-
-
         
         //return;
     });
