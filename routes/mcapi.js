@@ -352,16 +352,7 @@ function convertContent(atoken) {
 
         console.log(tmp.content);
         var content = '<html>'+tmp.content+'</html>';
-
-        try {
-            response.send(content);
-            console.log('success');
-        } catch (error) {
-            console.log('error');
-        }
-        
-        
-
+    
         console.log("===========================================================================================================");
         console.log("");
 
